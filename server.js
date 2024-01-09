@@ -6,6 +6,8 @@ import mongoose from 'mongoose';
 import morgan from 'morgan';
 import cookieParser from 'cookie-parser';
 import { authenticateUser } from './middleware/authMiddleware.js';
+import helmet from 'helmet';
+import mongoSanitize from 'express-mongo-sanitize';
 
 // router imports
 import authRouter from './routes/auth.js';
@@ -21,6 +23,10 @@ import path from 'path';
 const app = express();
 const port = process.env.PORT || 5100;
 const __dirname = dirname(fileURLToPath(import.meta.url));
+
+// security
+app.use(helmet());
+app.use(mongoSanitize());
 
 // Middlewares
 import errorMiddleWare from './middleware/errorMiddleware.js';
